@@ -15,9 +15,11 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { createTheme, Stack, ThemeProvider } from '@mui/material';
+import { dataContext } from '../../assets/dataProvider';
 
 
-export default function MainTask({ username }: User) {
+export default function MainTask() {
+    const username = React.useContext(dataContext)
 
     const navigate = useNavigate()
     const theme = createTheme({
@@ -85,7 +87,7 @@ export default function MainTask({ username }: User) {
                 <Box className='mainTaskLeft'>
                     <ButtonGroup>
                         <Button key="one" onClick={() => { navigate('/' + username + '/finance/tasks') }}>Tasks</Button>
-                        <Button onClick={() => { navigate('/' + username + '/finance/tasks/new')}}>New Tasks</Button>
+                        <Button onClick={() => { navigate('/' + username + '/finance/tasks/new') }}>New Tasks</Button>
                         <Button key="three">Three</Button>
                     </ButtonGroup>
 

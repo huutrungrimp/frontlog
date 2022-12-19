@@ -14,10 +14,13 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import GroupIcon from '@mui/icons-material/Group';
 import { User } from '../../interface';
 import { theme } from '../../assets/mui/styles';
+import { dataContext } from '../assets/dataProvider';
 
 
 
-export default function Menu4Mobile({ username }: User) {
+export default function Menu4Mobile() {
+
+    const username = React.useContext(dataContext )
     return (
         <ThemeProvider theme={theme}>
             <Box>

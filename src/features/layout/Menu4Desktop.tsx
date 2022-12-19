@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Link } from '@mui/material';
 import { User } from '../../interface';
+import { dataContext } from '../assets/dataProvider';
 
-export default function Menu4Desktop({ username }: User) {
+export default function Menu4Desktop() {
+    const username = useContext(dataContext )
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);

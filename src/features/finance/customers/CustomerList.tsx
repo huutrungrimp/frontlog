@@ -10,8 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Customer, User } from '../../../interface';
 import { theme } from '../../../assets/mui/styles';
-import { variables } from '../../../app/service';
-import { customerObject } from '../../assets/variables';
+import { customerObject, variables } from '../../assets/variables';
 
 
 

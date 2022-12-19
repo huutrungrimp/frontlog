@@ -4,9 +4,11 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { CardGroup, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { User } from '../../interface';
+import { dataContext } from '../assets/dataProvider';
 
 
-export default function Portfolio({username}:User) {
+export default function Portfolio() {
+    const username = React.useContext(dataContext)
 
     return (
         <Row id='portfolio' className='portfolio'>

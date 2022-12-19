@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Col, Row } from 'react-bootstrap';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Resume from './Resume';
 import Portfolio from './Portfolio';
 import About from './About';
-import { User } from '../../interface';
 
 
-export default function Home({username}:User) {
+
+
+export default function Home() {
     return (
         <div>
             <div className='image4about'>
@@ -17,7 +17,7 @@ export default function Home({username}:User) {
             </div>
             <div className='image4portfolio'>
                 <div className='home gx-0'>
-                    <Portfolio username={username} />
+                    <Portfolio />
                 </div>
             </div>
             <div className='image4resume'>

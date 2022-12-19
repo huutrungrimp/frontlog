@@ -11,9 +11,11 @@ import { borderBottom } from '@mui/system';
 import shadows from '@mui/material/styles/shadows';
 import { purple, green } from '@mui/material/colors';
 import { User } from '../../interface';
+import { dataContext } from '../assets/dataProvider';
 
-export default function MainFinance({ username }: User) {
+export default function MainFinance() {
     const navigate = useNavigate()
+    const username = React.useContext(dataContext)
 
     const theme = createTheme({
         components: {

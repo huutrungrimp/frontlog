@@ -9,18 +9,20 @@ import { useNavigate } from 'react-router-dom';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Task, User } from '../../../interface';
 import { theme } from '../../../assets/mui/styles';
-import { variables } from '../../../app/service';
-import { taskObject } from '../../assets/variables';
+import { taskObject, variables } from '../../assets/variables';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { dataContext } from '../../assets/dataProvider';
 
 
 
-export default function AllTasks({ username }: User) {
+export default function AllTasks() {
+    const username = React.useContext(dataContext)
     const navigate = useNavigate()
-
-    const url = `${variables.urlbase}/accounts/${username}/tasks`
+    
+    const url = `${variables.urlbase}accounts/${username}/tasks`
     console.log(url)
+ 
 
     const [tasks, setTasks] = React.useState<Array<Task>>([taskObject])
 
@@ -42,11 +44,6 @@ export default function AllTasks({ username }: User) {
     }, [])
 
     tasks.map(task => console.log(task.id))
-
-    const [isCompleted, setIsCompleted] = React.useState(true);
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsCompleted(event.target.checked);
-    };
 
 
     return (
@@ -89,7 +86,7 @@ export default function AllTasks({ username }: User) {
                         ))}
                     </Box>
                     <Box>
-                        <IconButton onClick={() => { navigate('/' + username + '/finance/tasks/' + 'add') }}>
+                        <IconButton onClick={() => { navigate('/' + username + '/finance/tasks/' + 'new') }}>
                             <ControlPointIcon sx={{ ml: 0, fontSize: '50', color: 'secondary.dark' }} fontSize="large" color='success' />
                             <Typography color='black'>Add Tasks</Typography>
                         </IconButton>

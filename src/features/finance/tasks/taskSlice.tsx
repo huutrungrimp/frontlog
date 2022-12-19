@@ -31,7 +31,6 @@ const initialState: Task = {
 const urlbase = variables.urlbase;
 console.log(urlbase)
 const url = `${urlbase}accounts/${existingUser.username}/tasks`
-// const url = `http://127.0.0.1:8000/accounts/${existingUser.username}/tasks`
 
 const taskSlice = createSlice({
 

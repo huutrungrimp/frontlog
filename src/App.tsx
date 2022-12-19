@@ -13,9 +13,10 @@ import Home from './features/layout/Home';
 import MainPage from './features/layout/MainPage';
 import FinanceDB from './features/finance/FinanceDB';
 import CreateTask from './features/finance/tasks/CreateTask';
-import TaskDashboard from './features/finance/tasks/MainTask';
+import MainTask from './features/finance/tasks/MainTask';
 import UpdateTask from './features/finance/tasks/UpdateTask';
 import TaskDetail from './features/finance/tasks/TaskDetail';
+import Test from './Test';
 
 
 export function App() {
@@ -25,21 +26,21 @@ export function App() {
   const urlbase = variables.urlbase
   return (
     <div className='App gx-0'>
-      <NavPage username={existingUser.username} />
+      <NavPage />
       <Routes>
-        <Route path="/home" element={<Home username={existingUser.username} />} />
-        <Route path="/" element={<Home username={existingUser.username} />} />
+        <Route path='test' element={<Test />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path={existingUser.username} element={<MainPage username={existingUser.username} />}>
+        <Route path={existingUser.username} element={<MainPage />}>
           <Route index element={<DashboardMessages />} />
-          <Route path="finance" element={<MainFinance username={existingUser.username} />}>
-            {/* <Route index element={<TaskList username={existingUser.username} />} /> */}
-            <Route path='tasks' element={<TaskDashboard username={existingUser.username} />}>
-              <Route index element={<TaskList username={existingUser.username} />} />
-              <Route path='new' element={<CreateTask username={existingUser.username} />} />
-              <Route path=':id' element={<TaskDetail username={existingUser.username} />} /> 
-              <Route path=':id/update' element={<UpdateTask username={existingUser.username} />} />              
+          <Route path="finance" element={<MainFinance />}>
+            <Route path='tasks' element={<MainTask /> }>
+              <Route index element={<TaskList />} />
+              <Route path='new' element={<CreateTask />} />
+              <Route path=':id' element={<TaskDetail />} />
+              <Route path=':id/update' element={<UpdateTask />} />
             </Route>
           </Route>
         </Route>

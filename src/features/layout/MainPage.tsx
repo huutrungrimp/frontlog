@@ -3,11 +3,12 @@ import { Outlet } from 'react-router-dom'
 import { User } from '../../interface'
 import MenuMain from './MenuMain'
 
-export default function MainPage({username}:User) {
+
+export default function MainPage() {
   return (
     <div className='mainPage'>
       <div className='menuMain'>
-        <MenuMain username={username} />
+        <MenuMain />
       </div>
       <div className='contentMain'>
         <Outlet />

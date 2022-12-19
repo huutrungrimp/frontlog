@@ -1,4 +1,4 @@
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import React, { FunctionComponent, PropsWithChildren, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Box } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,11 +13,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from '@mui/material/Link';
 import { User } from '../../interface';
+import { dataContext } from '../assets/dataProvider';
 
 
 
 
-const NavPage = ({ username }:User) => {
+const NavPage = () => {
+    const username = useContext(dataContext )
     const length = Object.keys(username).length
     // console.log(length)
 

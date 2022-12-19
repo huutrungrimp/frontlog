@@ -1,12 +1,14 @@
 import { Box, TextField, ThemeProvider, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { boxStyle, theme } from '../../../assets/mui/styles';
 import { Customer, Task, User } from '../../../interface';
+import { dataContext } from '../../assets/dataProvider';
 import { taskObject, variables } from '../../assets/variables';
 
 
-export default function TaskDetail({ username }: User) {
+export default function TaskDetail() {
+    const username = useContext(dataContext)
     const id = useParams().id;
     const taskID = (id === undefined) ? ('') : (parseInt(id))
 

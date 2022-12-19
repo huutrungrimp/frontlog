@@ -25,11 +25,15 @@ import { Customer, User } from '../../../interface';
 import { variables } from '../../assets/variables';
 import { useAppDispatch } from '../../../app/hooks';
 import { createTask } from './taskSlice';
+import { dataContext } from '../../assets/dataProvider';
 
 
-export default function CreateTask({ username }: User) {
+export default function CreateTask() {
+
+    const username = React.useContext(dataContext)
 
     const [title, setTitle] = React.useState('');
+    const [customerName, setCustomerName] = React.useState('');
     const today = new Date().toLocaleDateString("en", { year: "numeric", day: "2-digit", month: "2-digit" })
     console.log(today)
 
@@ -43,7 +47,7 @@ export default function CreateTask({ username }: User) {
     const navigate = useNavigate()
 
 
-    const url = `${variables.urlbase}/accounts/${username}/customers`
+    const url = `${variables.urlbase}accounts/${username}/customers`
     // const url = `http://127.0.0.1:8000/accounts/${username}/customers`
 
     const [customers, setCustomers] = React.useState<Array<Customer>>([])
@@ -65,13 +69,13 @@ export default function CreateTask({ username }: User) {
             })
     }, [])
 
-    const [customerName, setCustomerName] = React.useState('');
+    
 
     const onChangeSelectCustomer = (event: SelectChangeEvent) => {
         setCustomerName(event.target.value as string);
     };
 
-    // Object.values(customers).map(key => console.log(key)) || {}
+
     const selectedCustomer = customers.filter(customer => customer.customerName === customerName)[0] || {}
     console.log(selectedCustomer)
 

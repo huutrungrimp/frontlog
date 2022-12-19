@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Task, User } from '../../../interface';
 import { theme } from '../../../assets/mui/styles';
-import { variables } from '../../../app/service';
-import { taskObject } from '../../assets/variables';
+import { taskObject, variables } from '../../assets/variables';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -19,7 +18,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 export default function CompletedTask({ username }: User) {
     const navigate = useNavigate()
 
-    const url = `${variables.urlbase}/accounts/${username}/tasks`
+    const url = `${variables.urlbase}accounts/${username}/tasks`
     console.log(url)
 
     const [tasks, setTasks] = React.useState<Array<Task>>([taskObject])

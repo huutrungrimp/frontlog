@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Task, User } from '../../../interface'
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
@@ -25,9 +25,12 @@ import FormControl from '@mui/material/FormControl';
 import { theme } from '../../../assets/mui/styles';
 import SelectedCustomer from '../customers/SelectedCustomer';
 import { updateTask } from './taskSlice';
+import { dataContext } from '../../assets/dataProvider';
 
 
-export default function UpdateTask({ username }: User) {
+export default function UpdateTask() {
+
+    const username = useContext(dataContext)
     const id = useParams().id;
     const taskID = (id === undefined) ? ('') : (parseInt(id))
     const url = `${variables.urlbase}accounts/${username}/tasks`
