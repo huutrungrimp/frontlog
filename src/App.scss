@@ -1,0 +1,45 @@
+@import '../src/assets/sass/homePage';
+@import '../src/assets/sass/mainPage';
+@import '../src/assets/sass/signout';
+@import '../src/assets/sass/signin';
+@import '../src/assets/sass/signup';
+@import '../src/assets/sass/finance';
+@import '../src/assets/sass/button';
+@import '../src/assets/sass/task';
+
+
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  
+}
+nav ul {
+  margin-top: 20px;
+  li {
+    list-style:none;
+    margin-bottom: 10px
+  }
+}
+
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+@import "../node_modules/bootstrap/scss/bootstrap";

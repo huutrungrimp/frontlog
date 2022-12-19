@@ -1,0 +1,31 @@
+.mainTask {
+    background-color: tint-color(green, 65%);
+}
+
+.taskList,
+.updateTask,
+.taskDetail {
+    background-color: tint-color(green, 85%);
+    border-radius: 6px;
+}
+
+@media screen and (min-width: 600px) {
+    .mainTaskLeft {
+        width: 15%;
+        margin-top: 65px;
+        padding-left: 10px;
+        float: left;
+        position: fixed;
+        // background-color: tint-color(green, 95%);
+        min-height: 100vh;
+    }
+
+    .mainTaskRight {
+        width: 70%;
+        margin-top: 65px;
+        margin-right: 10%;
+        padding-top: 10px;
+        float: right;
+        min-height: 100vh;
+    }
+}

@@ -1,0 +1,34 @@
+@import './variables';
+
+.financeDB {
+    min-height: 100vh;
+    // background-color: rgb(194, 177, 156);
+}
+
+.mainFinanceTop {
+    background-color: aquamarine;
+    width: 100%;
+}
+
+.mainFinanceBottom {
+
+    width: 100%;
+}
+
+
+h3 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .mainFinanceTop {
+        position: fixed;
+    }
+
+    .mainFinanceBottom {
+        background-color: aquamarine;
+    }
+
+}
