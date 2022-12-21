@@ -32,13 +32,13 @@ export default function TaskList() {
                             <Tab label="Incompleted" value="incompletedTasks" />
                         </TabList>
                     </Box>
-                    <TabPanel value="allTasks">
+                    <TabPanel sx={{p:1}} value="allTasks">
                         <AllTasks />
                     </TabPanel>
-                    <TabPanel value="completedTasks">
+                    <TabPanel sx={{p:1}} value="completedTasks">
                         <CompletedTask username={username} />
                     </TabPanel>
-                    <TabPanel value="incompletedTasks">
+                    <TabPanel sx={{p:1}} value="incompletedTasks">
                         <IncompletedTask username={username} />
                     </TabPanel>
                 </TabContext>

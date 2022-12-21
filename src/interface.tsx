@@ -23,6 +23,7 @@ export interface Task {
     title: string;
     date_time_start:string;
     date_time_end:string;
-    hours: number|string;
+    task_rate:string|number;
+    hours: number|string;    
 }
 

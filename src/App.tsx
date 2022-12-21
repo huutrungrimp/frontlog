@@ -17,6 +17,8 @@ import MainTask from './features/finance/tasks/MainTask';
 import UpdateTask from './features/finance/tasks/UpdateTask';
 import TaskDetail from './features/finance/tasks/TaskDetail';
 import Test from './Test';
+import TaskSearch from './features/finance/tasks/SearchTask';
+import SearchTask from './features/finance/tasks/SearchTask';
 
 
 export function App() {
@@ -41,6 +43,7 @@ export function App() {
               <Route path='new' element={<CreateTask />} />
               <Route path=':id' element={<TaskDetail />} />
               <Route path=':id/update' element={<UpdateTask />} />
+              <Route path='search' element={<SearchTask />} />
             </Route>
           </Route>
         </Route>

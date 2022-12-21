@@ -25,6 +25,7 @@ const initialState: Task = {
     title: '',
     date_time_start: '',
     date_time_end: '',
+    task_rate:'',
     hours: ''
 }
 
@@ -32,14 +33,16 @@ const urlbase = variables.urlbase;
 console.log(urlbase)
 const url = `${urlbase}accounts/${existingUser.username}/tasks`
 
+
 const taskSlice = createSlice({
 
     name: 'task',
     initialState,
     reducers: {
         createTask: (state, action) => {
-            console.log(JSON.stringify(action.payload))
+            // console.log(JSON.stringify(action.payload))
             console.log(action.payload)
+            console.log(url + '/new/' + action.payload.customerID)
             fetch(url + '/new/' + action.payload.customerID, {
                 method: 'POST',
                 headers: {

@@ -4,10 +4,23 @@
 
 .taskList,
 .updateTask,
-.taskDetail {
+.taskDetail,
+.searchTask {
     background-color: tint-color(green, 85%);
     border-radius: 6px;
+    
 }
+
+.createTask {
+    padding: 10px 10px 10px 10px;
+}
+#taskTitle, #taskTiming, #taskCustomerSearch, #taskExistingCustomer {
+    margin-bottom: 20px;
+}
+#taskTiming div {
+    margin-bottom: 20px;
+}
+
 
 @media screen and (min-width: 600px) {
     .mainTaskLeft {
@@ -27,5 +40,13 @@
         padding-top: 10px;
         float: right;
         min-height: 100vh;
+    }
+    #taskTiming {
+        display: flex;
+        gap: 10px;
+        
+    }
+    #taskTiming div{
+        width: 100%;
     }
 }

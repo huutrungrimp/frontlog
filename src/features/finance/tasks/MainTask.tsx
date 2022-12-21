@@ -60,10 +60,11 @@ export default function MainTask() {
             MuiButton: {
                 styleOverrides: {
                     root: {
-                        justifyContent: "flex-start",
+                        justifyContent: "flex-start",                        
                         [muitheme.breakpoints.down('sm')]: {
                             border: 1,
-                            borderRadius: 4
+                            borderRadius: 4,
+                            textTransform:'none'
                         },
                         [muitheme.breakpoints.up('md')]: {
                             marginRight: muitheme.spacing(3),
@@ -86,9 +87,9 @@ export default function MainTask() {
             <div className='mainTask gx-0'>
                 <Box className='mainTaskLeft'>
                     <ButtonGroup>
-                        <Button key="one" onClick={() => { navigate('/' + username + '/finance/tasks') }}>Tasks</Button>
+                        <Button onClick={() => { navigate('/' + username + '/finance/tasks') }}>Tasks</Button>
                         <Button onClick={() => { navigate('/' + username + '/finance/tasks/new') }}>New Tasks</Button>
-                        <Button key="three">Three</Button>
+                        <Button onClick={() => { navigate('/' + username + '/finance/tasks/search') }}>Search Tasks</Button>
                     </ButtonGroup>
 
                 </Box>

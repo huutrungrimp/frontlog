@@ -55,12 +55,18 @@ export default function CompletedTask({ username }: User) {
                     <h3>Completed Tasks</h3>
                     <Box>
                         {tasks.filter(task => task.isCompleted === true).map(task => (
-                            <Box key={'incompletedTask'+task.id}>
+                            <Box key={'incompletedTask' + task.id}>
                                 <Box display="flex" justifyContent='space-between' key={'task' + task.id}>
                                     <Box sx={{ width: '40%', paddingLeft: { xs: '10px', md: '20px' } }}>
-                                        <Link href={'/' + username + '/finance/tasks/' + task.id}>{task.title}</Link>
+                                        <IconButton aria-label="">
+                                            <Typography variant="body1" color="initial">
+                                                <Link href={'/' + username + '/finance/tasks/' + task.id}>
+                                                    {task.title}
+                                                </Link>
+                                            </Typography>
+                                        </IconButton>
                                     </Box>
-                                    <Box sx={{ width: '30%' }}>
+                                    <Box sx={{ width: '40%' }}>
                                         <IconButton aria-label="">
                                             <CancelIcon sx={{ color: 'red', marginRight: '10px' }} />
                                             <Typography variant="body1" color="initial">Incompleted</Typography>
