@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { createContext } from 'react';
 import { DataProvider } from './features/assets/dataProvider';
 import { variables } from './features/assets/variables';
+import { AppContextProps } from './interface';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,8 +17,9 @@ const root = ReactDOM.createRoot(
 const user = localStorage.getItem('userDetail');
 const existingUser = (user === null ? "" : (JSON.parse(localStorage.getItem('userDetail') || '')));
 console.log(existingUser.username)
-const data = {
-  username: existingUser.username,
+
+const data:AppContextProps = {
+  username: existingUser?.username,
   urlbase: variables.urlbase,
 }
 
@@ -25,7 +27,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <DataProvider value={data.username}>
+        <DataProvider value={data}>
           <App />
         </DataProvider>
       </Provider>

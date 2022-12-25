@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { resolve } from "path/posix";
 import { variables } from "../assets/variables";
 
 export interface AuthState {

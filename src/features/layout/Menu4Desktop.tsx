@@ -29,7 +29,7 @@ export default function Menu4Desktop() {
             >
                 Desktop
             </Button>
-            {(Object.keys(username).length === 0) ? (
+            {(username?.username === '') ? (
                 ''
             ) : (
                 <Menu

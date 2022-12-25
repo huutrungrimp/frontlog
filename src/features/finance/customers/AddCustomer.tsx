@@ -1,12 +1,10 @@
 import React from 'react'
-import { Box, TextField, Button, Typography, Paper, ThemeProvider, IconButton } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, ThemeProvider, IconButton, createTheme } from '@mui/material';
 import { useAppDispatch } from '../../../app/hooks';
-import { boxStyle, addCustomerStyle } from '../../../assets/mui/styles';
 import { addCustomer } from './customerSlice';
 import { useNavigate } from 'react-router-dom';
-import { theme } from '../../../assets/mui/styles';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { customerObject } from '../../assets/variables';
+import { componentTheme } from '../../../assets/mui/styles';
 
 export default function AddCustomer() {
 
@@ -31,93 +29,75 @@ export default function AddCustomer() {
 
     console.log(customer)
 
+
     return (
-        <ThemeProvider theme={theme}>
-            <div className='financeContent gx-0'>
-                <Box sx={{ padding: 4, boxShadow: 3, borderRadius: 3 }}>
-                    <Box>
-                        <Typography variant='h5'>Customer Information</Typography>
-                    </Box>
-                    <Box
-                        sx={boxStyle}
-                    >
-                        <TextField
-                            label="Name"
-                            value={customer.customerName}
-                            name='customerName'
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' } }}
-                        />
-                        <TextField
-                            label="Email"
-                            value={customer.email}
-                            name='email'
-                            onChange={onChange}
-                            type="email"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' } }}
-                        />
-                        <TextField
-                            label="Phone"
-                            name='phone'
-                            value={customer.phone}
-                            onChange={onChange}
-                            type="number"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' } }}
-                        />
-                    </Box>
-                    <Box
-                        sx={boxStyle}
-                    >
-                        <TextField
-                            label="Address"
-                            value={customer.address}
-                            name='address'
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' }, mr: { xs: 0, md: 3 } }}
-                        />
-                        <TextField
-                            label="City"
-                            value={customer.city}
-                            name='city'
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' }, mr: { xs: 0, md: 3 } }}
-                        />
-                        <TextField
-                            label="State/Province"
-                            value={customer.province}
-                            name='province'
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' }, mr: { xs: 0, md: 3 } }}
-                        />
-                        <TextField
-                            label="Postal/Zip Code"
-                            name='postal'
-                            value={customer.postal}
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' }, mr: { xs: 0, md: 3 } }}
-                        />
-                        <TextField
-                            label="Country"
-                            name='country'
-                            value={customer.country}
-                            onChange={onChange}
-                            type="text"
-                            sx={{ my: 3, width: { md: '30%', xs: '100%' } }}
-                        />
-                    </Box>
-                    <Box>
-                        <IconButton onClick={onSubmit}>
-                            <ControlPointIcon sx={{ ml: 0, fontSize: '30', color: 'secondary.dark' }} fontSize="large" color='success' />
-                            <Typography color='black'>Add</Typography>
-                        </IconButton>
-                    </Box>
+        <ThemeProvider theme={componentTheme}>
+            <Box className='componentClass'>
+                <h4>Create Customer</h4>
+                <Box className='customerInfo'>
+                    <TextField
+                        label="Name"
+                        value={customer.customerName}
+                        name='customerName'
+                        onChange={onChange}
+                        type="text"
+                    />
+                    <TextField
+                        label="Email"
+                        value={customer.email}
+                        name='email'
+                        onChange={onChange}
+                        type="email"
+                    />
+                    <TextField
+                        label="Phone"
+                        name='phone'
+                        value={customer.phone}
+                        onChange={onChange}
+                        type="number"
+                    />
                 </Box>
-            </div>
+                <Box className='customerAddress'>
+                    <TextField
+                        label="Address"
+                        value={customer.address}
+                        name='address'
+                        onChange={onChange}
+                        type="text"
+                    />
+                    <TextField
+                        label="City"
+                        value={customer.city}
+                        name='city'
+                        onChange={onChange}
+                        type="text"
+                    />
+                    <TextField
+                        label="State/Province"
+                        value={customer.province}
+                        name='province'
+                        onChange={onChange}
+                        type="text"
+                    />
+                    <TextField
+                        label="Postal/Zip Code"
+                        name='postal'
+                        value={customer.postal}
+                        onChange={onChange}
+                        type="text"
+                    />
+                    <TextField
+                        label="Country"
+                        name='country'
+                        value={customer.country}
+                        onChange={onChange}
+                        type="text"
+                    />
+                </Box>
+                <Button className='btnSubmit' onClick={onSubmit}>
+                    Sumit
+                </Button>
+            </Box>
         </ThemeProvider >
     )
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../app/hooks';
-import { deleteCustomer } from './customerSlice';
-import { Button, Box, Typography, ThemeProvider, createTheme } from '@mui/material';
+import { deleteTask } from './taskSlice';
+import { Button, Box, Typography, createTheme, ThemeProvider } from '@mui/material';
 import { purple } from '@mui/material/colors';
 
 
-export default function DeleteCustomer() {
+export default function DeleteTask() {
 
   const id = useParams().id;
 
@@ -15,7 +15,7 @@ export default function DeleteCustomer() {
 
   const onClick = (event: React.MouseEvent) => {
 
-    dispatch(deleteCustomer(id));
+    dispatch(deleteTask(id));
     setTimeout(() => {
       document.location.reload();
     }, 500);
@@ -29,7 +29,7 @@ export default function DeleteCustomer() {
         styleOverrides: {
           root: {
             color: 'white',
-            textTransform: 'none'
+            textTransform:'none'
           }
         }
       },
@@ -37,7 +37,7 @@ export default function DeleteCustomer() {
         styleOverrides: {
           root: {
             borderRadius: 6,
-            backgroundColor: purple[500]
+            backgroundColor:purple[500]
           }
         }
       }

@@ -25,5 +25,11 @@ export interface Task {
     date_time_end:string;
     task_rate:string|number;
     hours: number|string;    
+    task_pay:number|string
+}
+
+export interface AppContextProps {
+    username: string;
+    urlbase: string;
 }
 

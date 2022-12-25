@@ -24,7 +24,7 @@ export default function Portfolio() {
                         <Image src="https://tourscanner.com/blog/wp-content/uploads/2022/06/things-to-do-in-Ottawa.jpg" />
                     </Row>
                     <Row className='my-3 gx-0'>
-                        <Link to={'/' + username + '/finance'}>Read more</Link>
+                        <Link to={'/' + username?.username + '/finance'}>Read more</Link>
                     </Row>
                 </Col>
                 <Col xs={12} md lg={6}>

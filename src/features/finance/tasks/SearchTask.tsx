@@ -45,7 +45,7 @@ export default function SearchTask() {
     });
     return (
         <ThemeProvider theme={theme}>
-            <Box className='searchTask p-3'>
+            <Box id='searchTask'>
                 <TextField
                     label="Task title"
                     InputProps={{

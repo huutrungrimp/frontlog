@@ -26,7 +26,8 @@ const initialState: Task = {
     date_time_start: '',
     date_time_end: '',
     task_rate:'',
-    hours: ''
+    hours: '',
+    task_pay:''
 }
 
 const urlbase = variables.urlbase;

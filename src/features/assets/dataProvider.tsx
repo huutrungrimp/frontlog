@@ -1,8 +1,8 @@
 import {createContext, useContext} from "react";
+import { AppContextProps } from "../../interface";
 
-const defaultValue = "";
 
-export const dataContext = createContext(defaultValue);
+export const dataContext = createContext<AppContextProps|null>(null);
 
 export const DataProvider = dataContext.Provider;
 export const BackendUrlConsumer = dataContext.Consumer;

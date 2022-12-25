@@ -4,15 +4,15 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import UpdateIcon from '@mui/icons-material/Update';
-import { IconButton, Button, Paper, ThemeProvider, Link, FormGroup, FormControlLabel, Switch } from '@mui/material';
+import { IconButton, Button, Paper, ThemeProvider, Link, FormGroup, FormControlLabel, Switch, createTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Task, User } from '../../../interface';
-import { theme } from '../../../assets/mui/styles';
 import { taskObject, variables } from '../../assets/variables';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { dataContext } from '../../assets/dataProvider';
+import { componentTheme } from '../../../assets/mui/styles';
 
 interface SearchInput {
     titleInput: string;
@@ -21,11 +21,10 @@ interface SearchInput {
 
 
 export default function TaskSearchOutput({ titleInput, customerInput }: SearchInput) {
-    console.log('title: ' + titleInput)
-    const username = React.useContext(dataContext)
+    const data = React.useContext(dataContext)
     const navigate = useNavigate()
 
-    const url = `${variables.urlbase}accounts/${username}/tasks`
+    const url = `${variables.urlbase}accounts/${data?.username}/tasks`
     console.log(url)
 
 
@@ -46,24 +45,23 @@ export default function TaskSearchOutput({ titleInput, customerInput }: SearchIn
             .catch(err => {
                 console.error(err)
             })
-    }, [])
+    }, [data?.username])
 
     console.log(tasks)
+    
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className='gx-0 py-3'>
-                <Box sx={{ border: 1, borderColor: 'green', borderRadius: 1 }}>
-                    <h3>All Tasks</h3>
-                    <Box>
-                        {tasks.map(task => (
-                            (task.title.includes(titleInput) === false) ? (<div></div>) : (
-                                (task.customer.customerName.includes(customerInput)===false)?(<div></div>):(
-                                    <Box display="flex" justifyContent='space-between' key={'task' + task.id}>
+        <ThemeProvider theme={componentTheme}>
+            {(titleInput === '' && customerInput === '') ? (<div></div>) : (
+                <Box>
+                    {tasks.map(task => (
+                        (task.title.toLowerCase().includes(titleInput.toLowerCase()) === false) ? (<div></div>) : (
+                            (task.customer.customerName.toLowerCase().includes(customerInput.toLowerCase()) === false) ? ('') : (
+                                <Box display="flex" justifyContent='space-between' key={'task' + task.id}>
                                     <Box sx={{ width: '40%', paddingLeft: { xs: '10px', md: '20px' } }}>
                                         <IconButton aria-label="">
                                             <Typography variant="body1" color="initial">
-                                                <Link href={'/' + username + '/finance/tasks/' + task.id}>
+                                                <Link href={'/' + data?.username + '/finance/tasks/' + task.id}>
                                                     {task.title}
                                                 </Link>
                                             </Typography>
@@ -85,23 +83,21 @@ export default function TaskSearchOutput({ titleInput, customerInput }: SearchIn
                                         </Box>
                                     )}
                                     <Box sx={{ width: '10%' }}>
-                                        <IconButton aria-label="" onClick={() => navigate('/' + username + '/finance/tasks/' + task.id + '/delete')}>
+                                        <IconButton aria-label="" onClick={() => navigate('/' + data?.username + '/finance/tasks/' + task.id + '/delete')}>
                                             <DeleteIcon color='secondary' />
                                         </IconButton>
                                     </Box>
                                     <Box sx={{ width: '10%' }}>
-                                        <IconButton onClick={() => { navigate('/' + username + '/finance/tasks/' + task.id + '/update') }}>
+                                        <IconButton onClick={() => { navigate('/' + data?.username + '/finance/tasks/' + task.id + '/update') }}>
                                             <UpdateIcon color='primary' />
                                         </IconButton>
                                     </Box>
                                 </Box>
-                                )
                             )
-
-                        ))}
-                    </Box>                    
+                        )
+                    ))}
                 </Box>
-            </div>
+            )}
         </ThemeProvider>
     );
 }

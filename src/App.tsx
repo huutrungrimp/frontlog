@@ -19,6 +19,13 @@ import TaskDetail from './features/finance/tasks/TaskDetail';
 import Test from './Test';
 import TaskSearch from './features/finance/tasks/SearchTask';
 import SearchTask from './features/finance/tasks/SearchTask';
+import MainCustomer from './features/finance/customers/MainCustomer';
+import CustomerList from './features/finance/customers/CustomerList';
+import AddCustomer from './features/finance/customers/AddCustomer';
+import CustomerDetail from './features/finance/customers/CustomerDetail';
+import UpdateCustomer from './features/finance/customers/UpdateCustomer';
+import DeleteCustomer from './features/finance/customers/DeleteCustomer';
+import DeleteTask from './features/finance/tasks/DeleteTask';
 
 
 export function App() {
@@ -27,7 +34,7 @@ export function App() {
   console.log(existingUser.username)
   const urlbase = variables.urlbase
   return (
-    <div className='App gx-0'>
+    <div id='app' className='App gx-0' data-cy='myapp'>
       <NavPage />
       <Routes>
         <Route path='test' element={<Test />} />
@@ -38,13 +45,24 @@ export function App() {
         <Route path={existingUser.username} element={<MainPage />}>
           <Route index element={<DashboardMessages />} />
           <Route path="finance" element={<MainFinance />}>
-            <Route path='tasks' element={<MainTask /> }>
+            <Route index element={<FinanceDB />} />
+            <Route path='tasks' element={<MainTask />}>
               <Route index element={<TaskList />} />
               <Route path='new' element={<CreateTask />} />
               <Route path=':id' element={<TaskDetail />} />
               <Route path=':id/update' element={<UpdateTask />} />
+              <Route path=':id/delete' element={<DeleteTask />} />
               <Route path='search' element={<SearchTask />} />
             </Route>
+            <Route path='customers' element={<MainCustomer />}>
+              <Route index element={<CustomerList />} />
+              <Route path='new' element={<AddCustomer />} />
+              <Route path=':id' element={<CustomerDetail />} />
+              <Route path=':id/update' element={<UpdateCustomer />} />
+              <Route path=':id/delete' element={<DeleteCustomer />} />
+              <Route path='search' element={<SearchTask />} />
+            </Route>
+
           </Route>
         </Route>
       </Routes>

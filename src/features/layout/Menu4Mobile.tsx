@@ -5,7 +5,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Box, Link, ThemeProvider } from '@mui/material';
+import { Box, createTheme, Link, ThemeProvider } from '@mui/material';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -13,18 +13,80 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import GroupIcon from '@mui/icons-material/Group';
 import { User } from '../../interface';
-import { theme } from '../../assets/mui/styles';
 import { dataContext } from '../assets/dataProvider';
+import { muitheme } from '../../assets/mui/styles';
+import { green } from '@mui/material/colors';
 
 
 
 export default function Menu4Mobile() {
 
-    const username = React.useContext(dataContext )
+    const username = React.useContext(dataContext)
+    const theme = createTheme({
+        components: {
+            MuiTab: {
+                styleOverrides: {
+                    root: {
+                        fontSize: '18px',
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        marginLeft: '10px',
+                        justifyContent: 'left',
+                        [muitheme.breakpoints.down('sm')]: {
+                            minHeight: '10px',
+                        },
+                        [muitheme.breakpoints.up('md')]: {
+                            minHeight: '20px',
+                        },
+                        [muitheme.breakpoints.up('lg')]: {
+                            minHeight: '30px',
+                        },
+
+                    },
+                },
+            },
+            MuiButton: {
+                styleOverrides: {
+                    root: {
+                        fontSize: 20,
+                        textTransform: 'none',
+                        backgroundColor: green[100],
+                        borderRadius: 10,
+                        minWidth: 150,
+                        maxHeight: 40,
+                        borderLeft: 60
+                    },
+                },
+            },
+
+            MuiMenuItem: {
+                styleOverrides: {
+                    root: {
+                        margin: 5,
+                        border: 1,
+                        borderRadius: 5
+                    },
+                },
+            },
+            MuiOutlinedInput: {
+                styleOverrides: {
+                    root: {
+                        "& .MuiOutlinedInput-notchedOutline": {
+                            borderWidth: 1,
+                            borderColor: "green"
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "blue"
+                        }
+                    }
+                },
+            },
+        },
+    });
     return (
         <ThemeProvider theme={theme}>
             <Box>
-                {(Object.keys(username).length === 0) ? (
+                {(username?.username === '') ? (
                     <MenuList>
                         <MenuItem>
                             <ListItemIcon>

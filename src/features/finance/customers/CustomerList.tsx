@@ -5,20 +5,21 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import UpdateIcon from '@mui/icons-material/Update';
-import { IconButton, Button, Paper, ThemeProvider, Link } from '@mui/material';
+import { IconButton, Button, Paper, ThemeProvider, Link, createTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Customer, User } from '../../../interface';
-import { theme } from '../../../assets/mui/styles';
 import { customerObject, variables } from '../../assets/variables';
+import { dataContext } from '../../assets/dataProvider';
+import { componentTheme } from '../../../assets/mui/styles';
 
 
 
-export default function CustomerList({ username }: User) {
+export default function CustomerList() {
     const navigate = useNavigate()
+    const data = React.useContext(dataContext)
 
-    const url = `${variables.urlbase}/accounts/${username}/customers`
-    // const url = `http://127.0.0.1:8000/accounts/${username}/customers`
+    const url = `${variables.urlbase}accounts/${data?.username}/customers`
     console.log(url)
 
     const [customers, setCustomers] = React.useState<Array<Customer>>([customerObject])
@@ -40,41 +41,36 @@ export default function CustomerList({ username }: User) {
             })
     }, [])
 
-   customers.map(customer => console.log(customer.id))
-
+    customers.map(customer => console.log(customer.id))
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className='financeContent gx-0'>
-                <Box sx={{ maxWidth: '500px', boxShadow: { xs: 0, md: 12 }, borderRadius: 4 }}>
-                    <h3>Existing Customers</h3>
-                    <Box>
-                        {customers.map(customer => (
-                            <Box display="flex" justifyContent='space-between' key={customer.id + customer.customerName.replace(/\s+/g, '-')}>
-                                <Box sx={{ width: '60%', paddingLeft: {xs:'10px', md:'20px'} }}>
-                                    <Link href={'/'+ username + '/finance/customers/' + customer.id}>{customer.customerName}</Link>
-                                </Box>
-                                <Box sx={{ width: '20%' }}>
-                                    <IconButton aria-label="" onClick={() => navigate('/'+ username + '/finance/customers/' + customer.id + '/delete')}>
-                                        <DeleteIcon color='secondary' />
-                                    </IconButton>
-                                </Box>
-                                <Box sx={{ width: '20%' }}>
-                                    <IconButton onClick={() => { navigate('/'+ username + '/finance/customers/' + customer.id + '/update') }}>
-                                        <UpdateIcon color='primary' />
-                                    </IconButton>
-                                </Box>
+        <ThemeProvider theme={componentTheme}>
+            <Box className='componentClass'>
+                <h4>Existing customers</h4>
+                <Box>
+                    {customers.map(customer => (
+                        <Box display="flex" justifyContent='space-between' key={customer.id + customer.customerName.replace(/\s+/g, '-')}>
+                            <Box sx={{ width: '60%'}}>
+                                <Link href={'/' + data?.username + '/finance/customers/' + customer.id}>{customer.customerName}</Link>
                             </Box>
-                        ))}
-                    </Box>
-                    <Box>
-                        <IconButton onClick={() => { navigate('/' + username + '/finance/customers/' + 'add') }}>
-                            <ControlPointIcon sx={{ ml: 0, fontSize: '50', color: 'secondary.dark' }} fontSize="large" color='success' />
-                            <Typography color='black'>Add customers</Typography>
-                        </IconButton>
-                    </Box>
+                            <Box sx={{ width: '20%' }}>
+                                <IconButton aria-label="" onClick={() => navigate('/' + data?.username + '/finance/customers/' + customer.id + '/delete')}>
+                                    <DeleteIcon color='secondary' />
+                                </IconButton>
+                            </Box>
+                            <Box sx={{ width: '20%' }}>
+                                <IconButton onClick={() => { navigate('/' + data?.username + '/finance/customers/' + customer.id + '/update') }}>
+                                    <UpdateIcon color='primary' />
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    ))}
                 </Box>
-            </div>
+                <IconButton onClick={() => { navigate('/' + data?.username + '/finance/customers/' + 'new') }}>
+                    <ControlPointIcon sx={{ mx: 1, fontSize: '20', color: 'secondary.dark' }} fontSize="medium" color='success' />
+                    <Typography color='black'>New Customer</Typography>
+                </IconButton>
+            </Box>
         </ThemeProvider>
     );
 }

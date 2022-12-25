@@ -1,24 +1,20 @@
-import { Box, TextField, Typography, IconButton } from '@mui/material';
-import React from 'react';
+import { Box, TextField, Typography, IconButton, createTheme, ThemeProvider } from '@mui/material';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { boxStyle } from '../../../assets/mui/styles';
-import Send from '@mui/icons-material/Send';
-import { Button } from 'react-bootstrap';
+import { componentTheme } from '../../../assets/mui/styles';
 import { useAppDispatch } from '../../../app/hooks';
 import { updateCustomer } from './customerSlice';
-import { customerObject } from '../../assets/variables';
+import { customerObject, variables } from '../../assets/variables';
 import Update from '@mui/icons-material/Update';
+import { dataContext } from '../../assets/dataProvider';
 
 export default function UpdateCustomer() {
+    const data = useContext(dataContext)
     const key = useParams().id;
     const customerID = (key === undefined) ? ('') : (parseInt(key))
+    const urlbase = 'https://backlog2.up.railway.app/'
 
-    const user = localStorage.getItem('userDetail');
-    const existingUser = (user === null ? "" : (JSON.parse(localStorage.getItem('userDetail') || '')));
-
-    const urlbase ='https://backlog2.up.railway.app/'
-
-    const url = `${urlbase}accounts/${existingUser.username}/customers`
+    const url = `${variables.urlbase}accounts/${data?.username}/customers`
     // const url = `http://127.0.0.1:8000/accounts/${existingUser.username}/customers`
     console.log(url + '/' + customerID + '/update')
 
@@ -66,86 +62,71 @@ export default function UpdateCustomer() {
     }
 
     return (
-        <div className='financeContent gx-0'>
-            <Box className='py-3 px-3 bg-light' sx={{ boxShadow: { xs: 3, md: 12 }, borderRadius: 4 }}>
-                <Box sx={{ pt: 2 }}>
-                    <Typography variant='h5'>Customer Information</Typography>
-                </Box >
+        <ThemeProvider theme={componentTheme}>
+            <Box className='componentClass'>
+                <h4>Update Customer</h4>
                 {(Object.keys(customer).length === 0) ? ('') : (
                     <Box>
-                        <Box
-                            sx={boxStyle}
-                        >
+                        <Box className='customerInfo'>
                             <TextField
                                 name='customerName'
                                 value={customer.customerName}
                                 type="text"
-                                sx={{ my: 2 }}
                                 onChange={onChange}
                             />
                             <TextField
                                 value={customer.email}
                                 name='email'
                                 type="text"
-                                sx={{ my: 2 }}
                                 onChange={onChange}
                             />
                             <TextField
                                 value={(customer.phone !== null) ? (customer.phone.toString()) : ('')}
                                 name='phone'
                                 type="number"
-                                sx={{ my: 2 }}
                                 onChange={onChange}
                             />
                         </Box>
-                        <Box
-                            sx={boxStyle}
-                        >
+                        <Box className='customerAddress'>
                             <TextField
                                 name='address'
                                 value={customer.address}
                                 type="text"
-                                sx={{ my: 2, width: { md: '30%' }, mr: { xs: 0, md: 3 } }}
                                 onChange={onChange}
                             />
                             <TextField
                                 name='city'
                                 value={customer.city}
                                 type="text"
-                                sx={{ my: 2, mr: { xs: 0, md: 3 } }}
                                 onChange={onChange}
                             />
                             <TextField
                                 name='province'
                                 value={customer.province}
                                 type="text"
-                                sx={{ my: 2, mr: { xs: 0, md: 3 } }}
                                 onChange={onChange}
                             />
                             <TextField
                                 name='postal'
                                 value={customer.postal}
                                 type="text"
-                                sx={{ my: 2, mr: { xs: 0, md: 3 } }}
                                 onChange={onChange}
                             />
                             <TextField
                                 name='country'
                                 value={customer.country}
                                 type="text"
-                                sx={{ my: 2, mr: { xs: 0, md: 3 } }}
                                 onChange={onChange}
                             />
                         </Box>
                     </Box>
                 )}
-
                 <IconButton aria-label="" onClick={onClick}>
-                    <Update color='primary'/>
+                    <Update color='primary' />
                     <Typography variant="body1" color="primary">Update</Typography>
                 </IconButton>
-
             </Box>
-        </div>
+        </ThemeProvider>
+
     )
 }

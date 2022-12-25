@@ -12,16 +12,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Link from '@mui/material/Link';
-import { User } from '../../interface';
 import { dataContext } from '../assets/dataProvider';
 
 
 
 
 const NavPage = () => {
-    const username = useContext(dataContext )
-    const length = Object.keys(username).length
-    // console.log(length)
+    const data = useContext(dataContext)
+    console.log(data)
 
     const pages = ['About', 'Portfolio', 'Resume', 'Blog'];
     const settings = ['Profile', 'Dashboard', 'Customers', 'Signout'];
@@ -117,10 +115,10 @@ const NavPage = () => {
                         <MenuItem
                             key={'user'}
                             component={Link}
-                            href={`/${username}`}
+                            href={`/${data?.username}`}
                             onClick={handleCloseNavMenu}
                         >
-                            <Typography textAlign="center">{username}</Typography>
+                            <Typography textAlign="center">{data?.username}</Typography>
                         </MenuItem>
 
                     </Menu>
@@ -168,16 +166,16 @@ const NavPage = () => {
                     <Button
                         key={'user'}
                         component={Link}
-                        href={`/${username}`}
+                        href={`/${data?.username}`}
                         onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: 'white', display: 'block' }}
                     >
-                        {username}
+                        {data?.username}
                     </Button>
 
                 </Box>
 
-                {(length === 0) ? (
+                {(data?.username === '') ? (
                     <Box sx={{ flexGrow: 1, display: 'flex' }}>
                         {authPages.map(page => (
                             <Box key={page.toLowerCase().replace(/\s/g, '')}>
@@ -217,7 +215,7 @@ const NavPage = () => {
                             {settings.map((setting) => (
                                 <MenuItem key={setting.toLowerCase().replace(/\s/g, '')} onClick={handleCloseUserMenu}
                                     component={Link}
-                                    href={'/' + username + '/' + setting.toLowerCase().replace(/\s/g, '')}>
+                                    href={'/' + data?.username + '/' + setting.toLowerCase().replace(/\s/g, '')}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}

@@ -5,7 +5,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { ThemeProvider, IconButton, ButtonGroup, Button, createTheme } from '@mui/material';
-import { theme, muitheme } from '../../assets/mui/styles';
+import { muitheme } from '../../assets/mui/styles';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { borderBottom } from '@mui/system';
 import shadows from '@mui/material/styles/shadows';
@@ -56,9 +56,9 @@ export default function MainFinance() {
                         variant="contained"
                         size="large"
                     >
-                        <Button onClick={() => { navigate('/' + username + '/finance') }}>Dashboard</Button>
-                        <Button onClick={() => { navigate('/' + username + '/finance/tasks') }}>Tasks</Button>
-                        <Button>Customers</Button>
+                        <Button onClick={() => { navigate('/' + username?.username + '/finance') }}>Dashboard</Button>
+                        <Button onClick={() => { navigate('/' + username?.username + '/finance/tasks') }}>Tasks</Button>
+                        <Button onClick={() => { navigate('/' + username?.username + '/finance/customers') }}>Customers</Button>
                     </ButtonGroup>
                 </ThemeProvider>
             </div>

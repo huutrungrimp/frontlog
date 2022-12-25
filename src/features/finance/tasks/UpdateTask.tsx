@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { customerObject, taskObject, variables } from '../../assets/variables';
 import { useAppDispatch } from '../../../app/hooks';
 import dayjs, { Dayjs } from 'dayjs';
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { createTheme, Input, InputAdornment, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { Box, ThemeProvider } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -13,27 +13,28 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
-
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { Typography, Button } from '@mui/material';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { theme } from '../../../assets/mui/styles';
 import SelectedCustomer from '../customers/SelectedCustomer';
 import { updateTask } from './taskSlice';
 import { dataContext } from '../../assets/dataProvider';
 
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { componentTheme } from '../../../assets/mui/styles';
+
 
 export default function UpdateTask() {
 
-    const username = useContext(dataContext)
+    const data = useContext(dataContext)
     const id = useParams().id;
     const taskID = (id === undefined) ? ('') : (parseInt(id))
-    const url = `${variables.urlbase}accounts/${username}/tasks`
+    const url = `${variables.urlbase}accounts/${data?.username}/tasks`
+    const customer_url = `${variables.urlbase}accounts/${data?.username}/customers`
 
     const [task, setTask] = React.useState<Task>(taskObject)
     const [title, setTitle] = React.useState('');
@@ -41,13 +42,9 @@ export default function UpdateTask() {
     const [endDateTime, setEndDateTime] = React.useState<Dayjs | null>(dayjs(task.date_time_end));
     const [customers, setCustomers] = React.useState([customerObject])
     const [customerName, setCustomerName] = React.useState('');
+    const [isCompleted, setIsCompleted] = React.useState(false);
+    const [taskRate, setTaskRate] = React.useState(0)
 
-    console.log(task)
-    console.log(title)
-    console.log(startDateTime)
-    console.log(endDateTime)
-    console.log(customers)
-    console.log(customerName)
 
     React.useEffect(() => {
         fetch(url + '/' + taskID, {
@@ -81,7 +78,6 @@ export default function UpdateTask() {
         })
             .then(res => res.json())
             .then(res => {
-                setCustomerName(res.customerName)
                 setCustomers(res)
             })
             .catch(err => {
@@ -89,152 +85,131 @@ export default function UpdateTask() {
             })
     }, [])
 
-    // console.log(task)
+    console.log(task)
+    // console.log(title)
+    // console.log(startDateTime)
+    // console.log(endDateTime)
+    // console.log(customer_url)
+    // console.log(customers)
+    // console.log(customerName)
+
+
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const customer_url = `${variables.urlbase}/accounts/${username}/customers`
-    // const url = `http://127.0.0.1:8000/accounts/${username}/customers`
+
 
     const start = new Date(dayjs(startDateTime).format('YYYY-MM-DD, HH:mm'))
     const end = new Date(dayjs(endDateTime).format('YYYY-MM-DD, HH:mm'))
     var diffHours = end.getHours() - start.getHours() + (end.getDate() - start.getDate()) * 24
-    console.log(diffHours)
-
 
     const onChangeSelectCustomer = (event: SelectChangeEvent) => {
         setCustomerName(event.target.value as string);
     };
 
     const selectedCustomer = customers.filter(customer => customer.customerName === customerName)[0] || {}
-    // console.log(customerName)
-
 
     const onSubmit = (e: React.MouseEvent) => {
-        const test = {
-            title: title,
-            selectedCustomer,
-            time: {
-                start: start.toISOString(),
-                end: end.toISOString,
-                hours: diffHours
-            }
-        };
-        console.log(test)
         dispatch(updateTask({
             id: id,
-            username: username,
+            isCompleted: isCompleted,
+            username: data?.username,
             customerID: selectedCustomer.id,
             title: title,
             date_time_start: start.toISOString(),
             date_time_end: end.toISOString(),
             hours: diffHours,
+            task_rate: taskRate
         }))
     }
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setIsCompleted(event.target.checked);
+    };
+    console.log(isCompleted)
+
     return (
-        <ThemeProvider theme={theme}>
-            <Box className='updateTask'>
-                <div className='row mx-0'>
-                    <Box className='gx-0 px-3'>
+        <ThemeProvider theme={componentTheme}>
+            <Box className='componentClass'>
+                <h4>Update Tasks</h4>
+                <Box className='gx-0'>
+                    <FormControlLabel control={<Checkbox checked={isCompleted} onChange={handleChange} />} label={(isCompleted === true) ? ('Completed') : ('Incompleted')} />
+                    <Box>
                         <TextField
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             label="Task name"
-                            sx={{ width: { xs: '100%' }, mr: 3, my: 2 }}
                         />
-                        <Box
-                            sx={{ display: { xs: 'grid', md: 'flex' }, justifyContent: { md: 'space-between' }, marginLeft: 0, marginRight: 0 }}
-                        >
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DateTimePicker
-                                    renderInput={(props) => <TextField {...props} sx={{ my: 3 }} />}
-                                    label="Start Date & Time"
-                                    value={startDateTime}
-                                    ampm={false}
-                                    onChange={(newValue) => {
-                                        setStartDateTime(newValue);
-                                    }}
-                                />
-                            </LocalizationProvider>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DateTimePicker
-                                    renderInput={(props) => <TextField {...props} sx={{ my: 3 }} />}
-                                    label="End Date & Time"
-                                    value={endDateTime}
-                                    ampm={false}
-                                    onChange={(newValue) => {
-                                        setEndDateTime(newValue);
-                                    }}
-                                />
-                            </LocalizationProvider>
-
-                            <TextField
-                                // disabled
-                                sx={{ my: 3 }}
-                                label="No. of hours"
-                                type="number"
-                                value={diffHours.toString()}
+                    </Box>
+                    <Box className='taskTiming'>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <DateTimePicker
+                                renderInput={(props) => <TextField {...props} />}
+                                label="Start Date & Time"
+                                value={startDateTime}
+                                ampm={false}
+                                onChange={(newValue) => {
+                                    setStartDateTime(newValue);
+                                }}
                             />
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: { md: 'start', xs: 'space-between' }, my: 3 }}>
-                            <Box sx={{ width: { xs: '100%', md: 200 }, mr: 2 }}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Existing Customers</InputLabel>
-                                    <Select
-                                        value={customerName ? customerName : ''}
-                                        label="Existing Customers"
-                                        onChange={onChangeSelectCustomer}
-                                    >
-                                        {customers.map(customer => (
-                                            (customer === undefined) ? ('') : (
-                                                <MenuItem key={customer.customerName} value={customer.customerName}>
-                                                    {customer.customerName}
-                                                </MenuItem>
-                                            )
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                        </LocalizationProvider>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker
+                                renderInput={(props) => <TextField {...props} />}
+                                label="End Date & Time"
+                                value={endDateTime}
+                                ampm={false}
+                                onChange={(newValue) => {
+                                    setEndDateTime(newValue);
+                                }}
+                            />
+                        </LocalizationProvider>
 
-                            </Box>
-                            <Box>
-                                <Box
-                                    component="form"
-                                    border={1}
-                                    borderRadius={2}
-                                    borderColor='success.main'
-                                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'left', width: '100%', height: 57 }}
-                                >
-                                    <InputBase
-                                        sx={{ ml: 1, flex: 1 }}
-                                        placeholder="Search for customers"
-                                        inputProps={{ 'aria-label': 'search google maps' }}
-                                    />
-                                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                                        <SearchIcon />
-                                    </IconButton>
-                                    <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                                </Box>
-                            </Box>
-                        </Box>
+                        <TextField
+                            label="No. of hours"
+                            type="number"
+                            value={(diffHours === 0) ? (0) : (diffHours.toString())}
+                        />
+                        <TextField
+                            label="Rate ($ per hour)"
+                            type="number"
+                            value={task.task_rate}
+                            onChange={(e) => { setTaskRate(parseInt(e.target.value)) }}
+                        />
+                        <TextField
+                            label="Task pay"
+                            type="number"
+                            value={(task.task_pay === null) ? (0) : (task.task_pay)}
+                        />
                     </Box>
+                </Box>
 
-                    <Box className='gx-0 px-3'>
-                        <Box
-                            border={1}
-                            borderColor="success.main"
-                            borderRadius={3}
-                            sx={{ my: 2, display: 'flex', justifyContent: 'space-between', width: { xs: '100%', md: '40%' } }}
-                        >
-                            <Typography sx={{ mx: 3, mt: 2 }} color='success'>Add new customers</Typography>
-                            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                                <Avatar>
-                                    <AddIcon color='primary' onClick={(e: React.MouseEvent) => { navigate('/account/customers/addcustomer') }} />
-                                </Avatar>
-                            </IconButton>
-                        </Box>
+                <Box className='customerInfo'>
+                    <Box className='existingCustomer'>
+                        <FormControl>
+                            <InputLabel>Existing Customers</InputLabel>
+                            <Select
+                                value={customerName ? customerName : ''}
+                                label="Existing Customers"
+                                onChange={onChangeSelectCustomer}
+                            >
+                                {(Object.keys(customers).length === 0) ? (<div></div>) : (
+                                    customers.map(customer => (
+                                        <MenuItem key={customer.customerName} value={customer.customerName}>
+                                            {customer.customerName}
+                                        </MenuItem>
+                                    ))
+                                )}
+                            </Select>
+                        </FormControl>
                     </Box>
-                </div>
+                    <IconButton className='addCustomer' onClick={(e: React.MouseEvent) => { navigate('/' + data?.username + '/finance/customers/new') }} >
+                        <Avatar>
+                            <AddIcon color='primary' />
+                        </Avatar>
+                        <Typography>Add new customers</Typography>
+                    </IconButton>
+                </Box>
 
                 {(customerName === '') ? (<div></div>) : (
                     <div className='mx-0'>
@@ -243,11 +218,9 @@ export default function UpdateTask() {
                         />
                     </div>
                 )}
-                <Box className='gx-0 boxButton' >
-                    <Button sx={{backgroundColor:'green'}} variant="text" color="inherit" onClick={onSubmit}>
-                        Submit
-                    </Button>
-                </Box>
+                <Button className='btnSubmit' onClick={onSubmit}>
+                    Submit
+                </Button>
             </Box>
         </ThemeProvider>
     )

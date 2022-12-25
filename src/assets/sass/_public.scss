@@ -1,0 +1,52 @@
+h4 {
+    text-align: left;
+    font-size: 20px!important;
+    padding: 10px 0px 10px 0;
+}
+
+.deletePage {
+    margin: auto;
+    width: 45%;
+    box-shadow: 5px;
+    background-color: rgb(98, 141, 141);
+    border-radius: 4px;
+    padding: 20px 0px 20px 0px
+}
+
+.deleteConfirm {
+    padding: 20px 0px 20px 0px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px
+}
+
+.mainComponent {
+    background-color: tint-color(green, 65%);
+}
+.componentClass {
+    background-color: tint-color(green, 85%);
+    border-radius: 6px;
+    padding: 0px 10px 0px 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .mainComponentLeft {
+        width: 15%;
+        margin-top: 65px;
+        padding-left: 10px;
+        float: left;
+        position: fixed;
+        // background-color: tint-color(green, 95%);
+        min-height: 100vh;
+    }
+
+    .mainComponentRight {
+        width: 70%;
+        margin-top: 65px;
+        margin-right: 10%;
+        padding-top: 10px;
+        float: right;
+        min-height: 100vh;
+    }
+}

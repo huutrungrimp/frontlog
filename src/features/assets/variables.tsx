@@ -28,5 +28,6 @@ export const taskObject = {
     date_time_start: '',
     date_time_end: '',
     task_rate:'',
-    hours: ''
+    hours: '',
+    task_pay: ''
 }

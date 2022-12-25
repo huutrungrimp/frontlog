@@ -3,9 +3,14 @@ import React from 'react'
 export default function FinanceDB() {
   return (
     <div className='financeDB'>
-      <div className='menuFinance'>Menu Finance</div>
-      <div className='contentFinance'>
-        Content Finance
+      <div>
+        Number of customers
+      </div>
+      <div>
+        Number of hours
+      </div>
+      <div>
+        Income
       </div>
     </div>
   )
