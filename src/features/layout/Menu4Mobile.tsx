@@ -21,7 +21,7 @@ import { green } from '@mui/material/colors';
 
 export default function Menu4Mobile() {
 
-    const username = React.useContext(dataContext)
+    const data = React.useContext(dataContext)
     const theme = createTheme({
         components: {
             MuiTab: {
@@ -86,7 +86,7 @@ export default function Menu4Mobile() {
     return (
         <ThemeProvider theme={theme}>
             <Box>
-                {(username?.username === '') ? (
+                {(data?.username === '') ? (
                     <MenuList>
                         <MenuItem>
                             <ListItemIcon>
@@ -107,20 +107,20 @@ export default function Menu4Mobile() {
                             <ListItemIcon>
                                 <DashboardIcon color='primary' fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText><Link href={`${username}/finance`}>Dashboard</Link></ListItemText>
+                            <ListItemText><Link href={`${data?.username}/finance`}>Dashboard</Link></ListItemText>
                         </MenuItem>
 
                         <MenuItem>
                             <ListItemIcon>
                                 <GroupIcon color='primary' fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText><Link href={`${username}/finance/customers`}>Customers</Link></ListItemText>
+                            <ListItemText><Link href={`${data?.username}/finance/customers`}>Customers</Link></ListItemText>
                         </MenuItem>
                         <MenuItem>
                             <ListItemIcon>
                                 <LogoutIcon color='primary' fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText><Link href={`${username}/signout`}>Sign Out</Link></ListItemText>
+                            <ListItemText><Link href={`${data?.username}/signout`}>Sign Out</Link></ListItemText>
                         </MenuItem>
                     </MenuList>
                 )}

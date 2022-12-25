@@ -1,8 +1,8 @@
 export const variables = {
     customer: ['name', 'phone', 'email', 'address', 'city', 'province', 'postal', 'country'],
     user: ['username', 'password', 'password2'],
-    // urlbase: 'https://backlog2.up.railway.app/',
-    urlbase: 'http://127.0.0.1:8000/'
+    urlbase: 'https://backlog2.up.railway.app/',
+    // urlbase: 'http://127.0.0.1:8000/'
 }
 
 export const customerObject = {
